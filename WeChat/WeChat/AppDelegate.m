@@ -98,7 +98,17 @@
 #pragma mark  与主机断开连接
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error{
     // 如果有错误，代表连接失败
-    NSLog(@"与主机断开连接 %@",error);
+    
+    if (error && _resultBlock) {
+        
+        _resultBlock(XMPPResultTypeNetErr);
+        // 没有错误，人为的正常断开连接
+        NSLog(@"非正常断开连接 %@",error);
+    } else {
+        
+        NSLog(@"正常断开");
+    }
+    
     
 }
 
@@ -121,14 +131,12 @@
     NSLog(@"授权成功");
     [self sendOnlineToHost];
     
-//    授权成功后进入主界面 更改创空的根控制器
-//    注意：由于代理是在子线程中运行的，所以界面反应的会很慢，那么就将调换主界面换控制器放到主线程中刷新UI
+    //判断block又没有值，再回调登陆控制器
+    if (_resultBlock) {
+        _resultBlock(XMPPResultTypeLoginSuccess);
+    }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIStoryboard *stortboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
-        self.window.rootViewController = stortboard.instantiateInitialViewController;
-    });
+
 }
 
 #pragma mark  授权成功后，发送"在线" 消息
@@ -167,9 +175,11 @@
 #pragma mark用户登陆
 - (void)xmppLogin:(XMPPResultBlock)resultBlock {
     
+    //注：如果以前连接过服务器，需要断开后才能再次连接，否则会报错，连接失败
+    [_xmppStream disconnect];
+    
     //1. 先把block存起来
     _resultBlock = resultBlock;
-    
     
     //连接服务器
     [self connectToHost];
