@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+// 注销
+-(void)logout;
+
+
 
 @end
 
