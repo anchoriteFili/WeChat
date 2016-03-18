@@ -56,6 +56,9 @@
                                         <rect key="frame" x="8" y="173" width="264" height="30"/>
                                         <color key="backgroundColor" red="0.82735558712121215" green="0.76332075596015247" blue="0.39261506864456941" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="登陆"/>
+                                        <connections>
+                                            <action selector="LoginBtnClick:" destination="8f3-5Y-bLk" eventType="touchUpInside" id="5ne-Ei-yQl"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfa-No-tPN">
                                         <rect key="frame" x="47" y="211" width="48" height="30"/>
@@ -154,6 +157,9 @@
                                             <constraint firstAttribute="height" constant="30" id="Y3F-o4-n58"/>
                                         </constraints>
                                         <state key="normal" title="登陆"/>
+                                        <connections>
+                                            <action selector="loginBtnClick:" destination="Re2-zB-s1w" eventType="touchUpInside" id="AY3-F4-gBd"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.82735558710000001" green="0.63643142880000003" blue="0.75524838409999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -184,6 +190,8 @@
                     <connections>
                         <outlet property="leftConstraint" destination="lHZ-RI-1IL" id="qTH-zO-teP"/>
                         <outlet property="rightConstraint" destination="Fyq-py-shw" id="DKO-dl-Rzb"/>
+                        <outlet property="userInfo" destination="nUu-WB-N8x" id="Wza-ln-PAE"/>
+                        <outlet property="userPwd" destination="J0D-B0-JlZ" id="mhR-12-U0g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hP-jB-KG2" userLabel="First Responder" sceneMemberID="firstResponder"/>

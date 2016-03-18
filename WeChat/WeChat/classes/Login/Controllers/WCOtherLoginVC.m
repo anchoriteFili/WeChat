@@ -7,6 +7,7 @@
 //
 
 #import "WCOtherLoginVC.h"
+#import "AppDelegate.h"
 
 @interface WCOtherLoginVC ()
 
@@ -15,6 +16,12 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 
+
+
+@property (weak, nonatomic) IBOutlet UITextField *userInfo; //账号
+
+
+@property (weak, nonatomic) IBOutlet UITextField *userPwd; //密码
 
 
 
@@ -34,6 +41,32 @@
     }
     
 }
+
+#pragma mark 登陆按钮点击事件
+- (IBAction)loginBtnClick:(UIButton *)sender {
+    
+    /**
+     1. 把用户名和密码放在沙盒
+     2. 调用AppDelegate的一个connect连接服务器并登陆
+     */
+    
+#pragma mark 把用户名和密码放在沙盒
+    NSString *user = self.userInfo.text;
+    NSString *pwd = self.userPwd.text;
+    
+    user = @"20247";
+    pwd = @"25d55ad283aa400af464c76d713c07ad";
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:user forKey:@"user"];
+    [defaults setObject:pwd forKey:@"pwd"];
+    [defaults synchronize];
+    
+#pragma mark 调用appdelegate中的登陆方法
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    [app xmppLogin];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

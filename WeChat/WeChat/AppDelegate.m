@@ -38,7 +38,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // 程序一启动就连接到主机
-    [self connectToHost];
+//    [self connectToHost];
     
     return YES;
 }
@@ -53,7 +53,12 @@
     // 设置登录用户JID
     //resource 标识用户登录的客户端 iphone android
     
-    XMPPJID *myJID = [XMPPJID jidWithUser:@"20247" domain:@"op.iyotv.com" resource:@"Smack" ];
+    
+    //沙盒中获取用户名
+    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    
+//    user = 20247
+    XMPPJID *myJID = [XMPPJID jidWithUser:user domain:@"op.iyotv.com" resource:@"Smack" ];
     _xmppStream.myJID = myJID;
     
     // 设置服务器域名
@@ -100,7 +105,11 @@
 -(void)sendPwdToHost{
     NSLog(@"再发送密码授权");
     NSError *err = nil;
-    [_xmppStream authenticateWithPassword:@"25d55ad283aa400af464c76d713c07ad" error:&err];
+    
+    NSString *pwd = [[NSUserDefaults standardUserDefaults] objectForKey:@"pwd"];
+    
+//    pwd
+    [_xmppStream authenticateWithPassword:pwd error:&err];
     if (err) {
         NSLog(@"%@",err);
     }
@@ -109,8 +118,16 @@
 #pragma mark 授权成功
 -(void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
     NSLog(@"授权成功");
-    
     [self sendOnlineToHost];
+    
+//    授权成功后进入主界面 更改创空的根控制器
+//    注意：由于代理是在子线程中运行的，所以界面反应的会很慢，那么就将调换主界面换控制器放到主线程中刷新UI
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIStoryboard *stortboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = stortboard.instantiateInitialViewController;
+    });
 }
 
 #pragma mark  授权成功后，发送"在线" 消息
@@ -138,6 +155,12 @@
     [_xmppStream disconnect];
     
     NSLog(@"离线成功");
+}
+
+#pragma mark用户登陆
+- (void)xmppLogin {
+    //连接服务器
+    [self connectToHost];
 }
 
 #pragma mark ==============XMPP结束====================

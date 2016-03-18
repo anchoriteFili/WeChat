@@ -15,6 +15,9 @@
 // 注销
 -(void)logout;
 
+//用户登陆
+- (void)xmppLogin;
+
 
 
 @end
