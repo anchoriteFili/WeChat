@@ -62,20 +62,24 @@
     [defaults setObject:pwd forKey:@"pwd"];
     [defaults synchronize];
     
-#pragma mark 调用appdelegate中的登陆方法
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app xmppLogin:^(XMPPResultType type) {
-        switch (type) {
-            case XMPPResultTypeLoginSuccess:
-                NSLog(@"登陆成功");
-                break;
-            case XMPPResultTypeLogiFailure:
-                NSLog(@"登陆失败");
-                break;
-            default:
-                break;
-        }
-    }];
+#pragma mark 调用appdelegate中的登陆方法 回到主线程
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        //    xmpp方法在子线程中运行，所以不回到主线程会有延迟
+        [app xmppLogin:^(XMPPResultType type) {
+            switch (type) {
+                case XMPPResultTypeLoginSuccess:
+                    NSLog(@"登陆成功");
+                    break;
+                case XMPPResultTypeLogiFailure:
+                    NSLog(@"登陆失败");
+                    break;
+                default:
+                    break;
+            }
+        }];
+    });
 }
 
 
