@@ -16,6 +16,8 @@
 		F96CFF2A1C9BC39B00C2994D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F96CFF281C9BC39B00C2994D /* LaunchScreen.storyboard */; };
 		F96CFF351C9BC39B00C2994D /* WeChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F96CFF341C9BC39B00C2994D /* WeChatTests.m */; };
 		F96CFF401C9BC39B00C2994D /* WeChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F96CFF3F1C9BC39B00C2994D /* WeChatUITests.m */; };
+		F96CFF511C9BC93400C2994D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F96CFF501C9BC93400C2994D /* Login.storyboard */; };
+		F96CFF561C9BD7BF00C2994D /* WCOtherLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F96CFF551C9BD7BF00C2994D /* WCOtherLoginVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +43,8 @@
 		7BADB9302E5D45AE96BF70EB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F96CFF171C9BC39B00C2994D /* WeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F96CFF1B1C9BC39B00C2994D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F96CFF1D1C9BC39B00C2994D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F96CFF1E1C9BC39B00C2994D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F96CFF1D1C9BC39B00C2994D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
+		F96CFF1E1C9BC39B00C2994D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
 		F96CFF201C9BC39B00C2994D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F96CFF211C9BC39B00C2994D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F96CFF241C9BC39B00C2994D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +57,9 @@
 		F96CFF3B1C9BC39B00C2994D /* WeChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F96CFF3F1C9BC39B00C2994D /* WeChatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeChatUITests.m; sourceTree = "<group>"; };
 		F96CFF411C9BC39B00C2994D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F96CFF501C9BC93400C2994D /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		F96CFF541C9BD7BF00C2994D /* WCOtherLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCOtherLoginVC.h; sourceTree = "<group>"; };
+		F96CFF551C9BD7BF00C2994D /* WCOtherLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCOtherLoginVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,11 +130,9 @@
 		F96CFF191C9BC39B00C2994D /* WeChat */ = {
 			isa = PBXGroup;
 			children = (
-				F96CFF1D1C9BC39B00C2994D /* AppDelegate.h */,
-				F96CFF1E1C9BC39B00C2994D /* AppDelegate.m */,
+				F96CFF4D1C9BC85300C2994D /* classes */,
 				F96CFF201C9BC39B00C2994D /* ViewController.h */,
 				F96CFF211C9BC39B00C2994D /* ViewController.m */,
-				F96CFF231C9BC39B00C2994D /* Main.storyboard */,
 				F96CFF261C9BC39B00C2994D /* Assets.xcassets */,
 				F96CFF281C9BC39B00C2994D /* LaunchScreen.storyboard */,
 				F96CFF2B1C9BC39B00C2994D /* Info.plist */,
@@ -162,6 +165,52 @@
 				F96CFF411C9BC39B00C2994D /* Info.plist */,
 			);
 			path = WeChatUITests;
+			sourceTree = "<group>";
+		};
+		F96CFF4D1C9BC85300C2994D /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				F96CFF521C9BC94700C2994D /* Others */,
+				F96CFF4F1C9BC8EB00C2994D /* Main */,
+				F96CFF4E1C9BC88A00C2994D /* Login(登陆) */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+		F96CFF4E1C9BC88A00C2994D /* Login(登陆) */ = {
+			isa = PBXGroup;
+			children = (
+				F96CFF531C9BD75E00C2994D /* Controllers */,
+				F96CFF501C9BC93400C2994D /* Login.storyboard */,
+			);
+			name = "Login(登陆)";
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F96CFF4F1C9BC8EB00C2994D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F96CFF231C9BC39B00C2994D /* Main.storyboard */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F96CFF521C9BC94700C2994D /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				F96CFF1D1C9BC39B00C2994D /* AppDelegate.h */,
+				F96CFF1E1C9BC39B00C2994D /* AppDelegate.m */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		F96CFF531C9BD75E00C2994D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F96CFF541C9BD7BF00C2994D /* WCOtherLoginVC.h */,
+				F96CFF551C9BD7BF00C2994D /* WCOtherLoginVC.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F96CFF511C9BC93400C2994D /* Login.storyboard in Resources */,
 				F96CFF2A1C9BC39B00C2994D /* LaunchScreen.storyboard in Resources */,
 				F96CFF271C9BC39B00C2994D /* Assets.xcassets in Resources */,
 				F96CFF251C9BC39B00C2994D /* Main.storyboard in Resources */,
@@ -349,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F96CFF221C9BC39B00C2994D /* ViewController.m in Sources */,
+				F96CFF561C9BD7BF00C2994D /* WCOtherLoginVC.m in Sources */,
 				F96CFF1F1C9BC39B00C2994D /* AppDelegate.m in Sources */,
 				F96CFF1C1C9BC39B00C2994D /* main.m in Sources */,
 			);
@@ -392,6 +443,7 @@
 				F96CFF241C9BC39B00C2994D /* Base */,
 			);
 			name = Main.storyboard;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		F96CFF281C9BC39B00C2994D /* LaunchScreen.storyboard */ = {
