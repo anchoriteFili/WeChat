@@ -64,7 +64,18 @@
     
 #pragma mark 调用appdelegate中的登陆方法
     AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app xmppLogin];
+    [app xmppLogin:^(XMPPResultType type) {
+        switch (type) {
+            case XMPPResultTypeLoginSuccess:
+                NSLog(@"登陆成功");
+                break;
+            case XMPPResultTypeLogiFailure:
+                NSLog(@"登陆失败");
+                break;
+            default:
+                break;
+        }
+    }];
 }
 
 

@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+//登陆成功失败的判断
+typedef enum {
+    
+    XMPPResultTypeLoginSuccess, //登陆成功
+    XMPPResultTypeLogiFailure //登陆失败
+}XMPPResultType;
+
+typedef void(^XMPPResultBlock)(XMPPResultType type); //xmpp请求结果的block
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -16,7 +25,7 @@
 -(void)logout;
 
 //用户登陆
-- (void)xmppLogin;
+- (void)xmppLogin:(XMPPResultBlock)resultBlock;
 
 
 
