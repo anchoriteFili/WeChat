@@ -55,33 +55,43 @@
     NSString *pwd = self.userPwd.text;
     
     user = @"20247";
-    pwd = @"25d55ad283aa400af464c76d713c07ad";
+    pwd = @"25d55ad283aa400af464c76d713c07ada";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:user forKey:@"user"];
     [defaults setObject:pwd forKey:@"pwd"];
     [defaults synchronize];
     
-#pragma mark 调用appdelegate中的登陆方法 回到主线程
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
-        //    xmpp方法在子线程中运行，所以不回到主线程会有延迟
-        [app xmppLogin:^(XMPPResultType type) {
-            switch (type) {
-                case XMPPResultTypeLoginSuccess:
-                    NSLog(@"登陆成功");
-                    break;
-                case XMPPResultTypeLogiFailure:
-                    NSLog(@"登陆失败");
-                    break;
-                default:
-                    break;
-            }
-        }];
-    });
+    //登陆过程中添加登录中提示
+    [MBProgressHUD showMessage:@"正在登陆中..."];
+    
+#pragma mark 对appdelegate中授权返回的值进行判断，启动不同的方法
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    
+    [app xmppLogin:^(XMPPResultType type) {
+        [self handleResultType:type];
+    }];
 }
 
+#pragma mark 调用appdelegate中的登陆方法 回到主线程
+- (void)handleResultType:(XMPPResultType)type {
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD]; //登陆成功或隐藏掉登陆中提示
+        switch (type) {
+            case XMPPResultTypeLoginSuccess:
+                NSLog(@"登陆成功");
+                break;
+            case XMPPResultTypeLogiFailure:
+                NSLog(@"登陆失败");
+                [MBProgressHUD showError:@"用户账号或者密码错误"];
+                break;
+            default:
+                break;
+        }
+    });
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
