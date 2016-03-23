@@ -1,51 +1,41 @@
 //
-//  WCOtherLoginVC.m
+//  LoginViewController.m
 //  WeChat
 //
-//  Created by 赵宏亚 on 16/3/18.
+//  Created by 赵宏亚 on 16/3/21.
 //  Copyright © 2016年 赵宏亚. All rights reserved.
 //
 
-#import "WCOtherLoginVC.h"
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 
-@interface WCOtherLoginVC ()
+@interface LoginViewController ()
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *userLable; //账户号
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
-
-
-
-@property (weak, nonatomic) IBOutlet UITextField *userInfo; //账号
-
-
-@property (weak, nonatomic) IBOutlet UITextField *userPwd; //密码
-
+@property (weak, nonatomic) IBOutlet UITextField *pwdTextField; //密码登陆
 
 
 @end
 
-@implementation WCOtherLoginVC
+@implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //判断适配的类型 改变左右约束的距离
+    //从沙盒获取用户名
+    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        self.leftConstraint.constant = 10;
-        self.rightConstraint.constant = 10;
-    }
+    self.userLable.text = user;
     
 }
 
-#pragma mark 登陆按钮点击事件
+#pragma mark 登陆
 - (IBAction)loginBtnClick:(UIButton *)sender {
     
-    [self.view endEditing:YES]; //收回键盘，结束编辑状态
+//    [self.view endEditing:YES]; //收回键盘，结束编辑状态
     
     /**
      1. 把用户名和密码放在沙盒
@@ -53,8 +43,8 @@
      */
     
 #pragma mark 把用户名和密码放在沙盒
-    NSString *user = self.userInfo.text;
-    NSString *pwd = self.userPwd.text;
+    NSString *user = self.userLable.text;
+    NSString *pwd = self.pwdTextField.text;
     
     user = @"20247";
     pwd = @"25d55ad283aa400af464c76d713c07ad";
@@ -66,11 +56,7 @@
     
 #pragma mark 抽取父类的方法 进入登陆流程
     [super login];
-}
-
-- (IBAction)cancalBtnClick:(id)sender {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

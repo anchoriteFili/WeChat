@@ -38,8 +38,17 @@
 #pragma mark 程序启动连接到主机
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    // 程序一启动就连接到主机
-//    [self connectToHost];
+    
+    NSUserDefaults *defaluts = [NSUserDefaults standardUserDefaults];
+    NSString *loginState = [defaluts objectForKey:LoginStatusKey];
+    
+    if ([loginState isEqualToString:@"YES"]) {
+        // 程序一启动就连接到主机
+        [self connectToHost];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.window.rootViewController = storyboard.instantiateInitialViewController;
+    }
     
     return YES;
 }
@@ -136,7 +145,7 @@
         _resultBlock(XMPPResultTypeLoginSuccess);
     }
     
-
+    [self loginStateYES];
 }
 
 #pragma mark  授权成功后，发送"在线" 消息
@@ -157,7 +166,6 @@
     if (_resultBlock) {
         _resultBlock(XMPPResultTypeLogiFailure);
     }
-    
 }
 
 #pragma mark -公共方法
@@ -170,6 +178,12 @@
     [_xmppStream disconnect];
     
     NSLog(@"离线成功");
+    
+    [self loginStateNO];
+    
+    // 3. 回到登陆界面
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    self.window.rootViewController = storyboard.instantiateInitialViewController;
 }
 
 #pragma mark用户登陆
@@ -186,6 +200,19 @@
 }
 
 #pragma mark ==============XMPP结束====================
+
+#pragma mark 登陆状态的设置
+- (void)loginStateNO {
+    NSUserDefaults *defaluts = [NSUserDefaults standardUserDefaults];
+    [defaluts setObject:@"NO" forKey:LoginStatusKey];
+    [defaluts synchronize];
+}
+
+- (void)loginStateYES {
+    NSUserDefaults *defaluts = [NSUserDefaults standardUserDefaults];
+    [defaluts setObject:@"YES" forKey:LoginStatusKey];
+    [defaluts synchronize];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
